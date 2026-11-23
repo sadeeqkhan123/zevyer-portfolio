@@ -2,10 +2,12 @@ import { z } from 'zod'
 import { Resend } from 'resend'
 
 const contactSchema = z.object({
-  name: z.string().trim().min(2, 'Name must be at least 2 characters'),
-  email: z.string().trim().email('Enter a valid email address'),
-  subject: z.string().trim().min(3, 'Subject must be at least 3 characters'),
-  message: z.string().trim().min(10, 'Message must be at least 10 characters'),
+  name: z.string().trim().min(2, 'Name must be at least 2 characters').max(120),
+  email: z.string().trim().email('Enter a valid email address').max(200),
+  company: z.string().trim().max(160).optional().default(''),
+  service: z.string().trim().min(1, 'Please choose a service').max(120),
+  budget: z.string().trim().max(60).optional().default(''),
+  message: z.string().trim().min(10, 'Message must be at least 10 characters').max(5000),
   website: z.string().optional(),
 })
 
@@ -15,7 +17,7 @@ export async function POST(request: Request) {
     const inboxEmail = process.env.CONTACT_INBOX_EMAIL || 'iamsadeeqkhan123@gmail.com'
 
     if (!resendApiKey) {
-      return Response.json({ message: 'Email service is not configured yet' }, { status: 500 })
+      return Response.json({ message: 'Email service is not configured yet. Please reach us on WhatsApp.' }, { status: 500 })
     }
 
     const body = await request.json()
@@ -41,21 +43,27 @@ export async function POST(request: Request) {
 
     const resend = new Resend(resendApiKey)
 
-    await resend.emails.send({
-      from: 'Portfolio Contact <onboarding@resend.dev>',
+    const { error } = await resend.emails.send({
+      from: 'Zevyer Website <onboarding@resend.dev>',
       to: [inboxEmail],
       replyTo: data.email,
-      subject: `[Portfolio Contact] ${data.subject}`,
-      text: `New contact form submission
+      subject: `[Zevyer Inquiry] ${data.service} — ${data.name}`,
+      text: `New project inquiry from the Zevyer website
 
 Name: ${data.name}
 Email: ${data.email}
-Subject: ${data.subject}
+Company: ${data.company || '—'}
+Service: ${data.service}
+Budget: ${data.budget || '—'}
 
-Message:
+Project details:
 ${data.message}
 `,
     })
+
+    if (error) {
+      return Response.json({ message: 'Unable to send your message right now. Please try WhatsApp.' }, { status: 502 })
+    }
 
     return Response.json({ message: 'Message received successfully' }, { status: 200 })
   } catch (error) {

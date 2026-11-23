@@ -1,71 +1,63 @@
 import type { Metadata, Viewport } from 'next'
-import { Outfit, Sora } from 'next/font/google'
+import { Inter, Plus_Jakarta_Sans } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
-import { SITE_NAME, SITE_TITLE, SITE_DESCRIPTION } from '@/lib/constants'
+import { COMPANY } from '@/lib/site'
+import { Header } from '@/components/site/header'
+import { Footer } from '@/components/site/footer'
+import { Backdrop } from '@/components/site/backdrop'
+import { MotionProvider } from '@/components/site/motion-provider'
 
-const outfit = Outfit({ 
-  subsets: ["latin"], 
-  weight: ["400", "500", "600", "700", "800"],
-  variable: '--font-outfit'
-});
-const sora = Sora({ 
-  subsets: ["latin"], 
-  weight: ["400", "500", "600", "700"],
-  variable: '--font-sora'
-});
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' })
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  weight: ['500', '600', '700', '800'],
+  variable: '--font-jakarta',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
-  title: `${SITE_NAME} — ${SITE_TITLE}`,
-  description: SITE_DESCRIPTION,
-  generator: 'v0.app',
-  authors: [{ name: SITE_NAME }],
-  keywords: ['project management', 'creative direction', 'product strategy', 'digital design'],
+  title: {
+    default: `${COMPANY.name} — ${COMPANY.tagline}`,
+    template: `%s · ${COMPANY.name}`,
+  },
+  description: COMPANY.description,
+  keywords: ['digital agency', 'AI agents', 'AI automation', 'web development', 'app development', 'digital marketing', 'Zevyer'],
   openGraph: {
-    title: `${SITE_NAME} — ${SITE_TITLE}`,
-    description: SITE_DESCRIPTION,
+    title: `${COMPANY.name} — ${COMPANY.tagline}`,
+    description: COMPANY.description,
     type: 'website',
+    siteName: COMPANY.name,
   },
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
+    apple: '/zevyer-logo.png',
   },
 }
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 5,
-  userScalable: true,
-  themeColor: '#020617',
+  themeColor: '#f6fafd',
 }
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html 
-      lang="en" 
-      className={`${outfit.variable} ${sora.variable}`}
-      style={{ scrollBehavior: 'smooth' }}
-    >
-      <body className="font-sans antialiased bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 text-slate-100 min-h-screen">
-        {children}
+    <html lang="en" className={`${inter.variable} ${jakarta.variable}`}>
+      <body className="min-h-screen font-sans">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-brand-700 focus:shadow-lg"
+        >
+          Skip to content
+        </a>
+        <Backdrop />
+        <MotionProvider>
+          <Header />
+          <main id="main" className="relative">
+            {children}
+          </main>
+          <Footer />
+        </MotionProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
