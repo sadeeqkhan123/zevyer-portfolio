@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, Check, TrendingUp } from 'lucide-react'
 import { CASE_STUDIES } from '@/lib/site'
 import { Reveal } from '@/components/site/reveal'
 import { CtaBand } from '@/components/site/ui'
+import { CaseStudyMedia, StatusBadge } from '@/components/site/case-study-card'
 
 type Params = { slug: string }
 
@@ -39,7 +40,8 @@ export default async function CaseStudyPage({ params }: { params: Promise<Params
           </Link>
           <div className="mt-6 flex flex-wrap items-center gap-2">
             <span className="eyebrow">{study.category}</span>
-            <span className="text-sm text-ink-soft">{study.year}</span>
+            <StatusBadge status={study.status} />
+            {study.year && <span className="text-sm text-ink-soft">{study.year}</span>}
           </div>
           <h1 className="mt-4 text-4xl font-extrabold leading-[1.08] text-ink sm:text-5xl lg:text-6xl">{study.title}</h1>
           <p className="mt-4 max-w-2xl text-lg leading-relaxed text-ink-soft">{study.summary}</p>
@@ -48,24 +50,22 @@ export default async function CaseStudyPage({ params }: { params: Promise<Params
 
       <section className="container-x">
         <Reveal className="glass overflow-hidden rounded-[2rem] p-2.5">
-          <img
-            src={study.image}
-            alt={`${study.title} brand artwork`}
-            width={1024}
-            height={682}
-            className="aspect-[16/9] w-full rounded-[1.6rem] object-cover"
+          <CaseStudyMedia
+            study={study}
+            eager
+            className={`w-full rounded-[1.6rem] ${study.imageFit === 'contain' ? 'aspect-[4/3] sm:aspect-[16/7]' : 'aspect-[3/2] sm:aspect-[16/9]'}`}
           />
         </Reveal>
       </section>
 
-      <section className="container-x mt-12 grid gap-6 lg:grid-cols-12">
+      <section className="container-x mt-12 grid grid-cols-1 gap-6 lg:grid-cols-12">
         <div className="space-y-6 lg:col-span-8">
           <Reveal className="glass-tint flex items-start gap-4 rounded-3xl p-7">
             <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-brand-600 text-white">
               <TrendingUp className="h-6 w-6" aria-hidden />
             </span>
             <div>
-              <h2 className="text-sm font-semibold uppercase tracking-[0.14em] text-brand-700">Impact</h2>
+              <h2 className="text-sm font-semibold uppercase tracking-[0.14em] text-brand-700">Outcome</h2>
               <p className="mt-2 text-xl font-bold text-ink sm:text-2xl">{study.impact}</p>
             </div>
           </Reveal>
@@ -92,13 +92,19 @@ export default async function CaseStudyPage({ params }: { params: Promise<Params
                 <dt className="font-semibold uppercase tracking-[0.14em] text-ink-soft">Client</dt>
                 <dd className="mt-1 text-base font-semibold text-ink">{study.title}</dd>
               </div>
+              {study.url && (
+                <div>
+                  <dt className="font-semibold uppercase tracking-[0.14em] text-ink-soft">Website</dt>
+                  <dd className="mt-1">
+                    <a href={`https://${study.url}`} target="_blank" rel="noopener noreferrer" className="break-all text-base font-semibold text-brand-700 hover:underline">
+                      {study.url}
+                    </a>
+                  </dd>
+                </div>
+              )}
               <div>
-                <dt className="font-semibold uppercase tracking-[0.14em] text-ink-soft">Website</dt>
-                <dd className="mt-1">
-                  <a href={`https://${study.url}`} target="_blank" rel="noopener noreferrer" className="text-base font-semibold text-brand-700 hover:underline">
-                    {study.url}
-                  </a>
-                </dd>
+                <dt className="font-semibold uppercase tracking-[0.14em] text-ink-soft">What we built</dt>
+                <dd className="mt-1 text-base text-ink">{study.scope.join(', ')}</dd>
               </div>
               <div>
                 <dt className="font-semibold uppercase tracking-[0.14em] text-ink-soft">Our role</dt>

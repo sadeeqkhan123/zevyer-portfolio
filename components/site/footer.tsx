@@ -10,8 +10,8 @@ export function Footer() {
   return (
     <footer className="relative mt-24 px-3 pb-3 sm:px-5 sm:pb-5">
       <div className="glass mx-auto max-w-7xl rounded-3xl px-6 py-12 sm:px-10 lg:py-14">
-        <div className="grid gap-10 lg:grid-cols-12">
-          <div className="lg:col-span-4">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
+          <div className="sm:col-span-2 lg:col-span-4">
             <Logo />
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-ink-soft">{COMPANY.description}</p>
             <div className="mt-6 flex flex-wrap gap-2">
@@ -26,7 +26,7 @@ export function Footer() {
             </div>
           </div>
 
-          <FooterColumn title="Company" className="lg:col-span-2">
+          <FooterColumn title="Company" className="lg:col-span-2 lg:pl-4">
             {NAV_ITEMS.map((item) => (
               <FooterLink key={item.href} href={item.href}>
                 {item.label}
@@ -43,11 +43,12 @@ export function Footer() {
           </FooterColumn>
 
           <FooterColumn title="Case studies" className="lg:col-span-3">
-            {CASE_STUDIES.map((c) => (
+            {CASE_STUDIES.slice(0, 6).map((c) => (
               <FooterLink key={c.slug} href={`/work/${c.slug}`}>
                 {c.title}
               </FooterLink>
             ))}
+            <FooterLink href="/work">All case studies →</FooterLink>
           </FooterColumn>
         </div>
 

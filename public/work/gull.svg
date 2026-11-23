@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="45%" r="70%"><stop offset="0" stop-color="#10233d"/><stop offset="1" stop-color="#05080f"/></radialGradient>
+    <radialGradient id="iris" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffffff"/><stop offset=".18" stop-color="#9ff0ff"/><stop offset=".55" stop-color="#0ebde6"/><stop offset="1" stop-color="#2160ac"/></radialGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#0ebde6" stop-opacity=".55"/><stop offset="1" stop-color="#0ebde6" stop-opacity="0"/></radialGradient>
+    <linearGradient id="lid" x1="0" x2="1"><stop offset="0" stop-color="#0ebde6"/><stop offset="1" stop-color="#7fe3ff"/></linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <ellipse cx="600" cy="340" rx="420" ry="260" fill="url(#glow)"/>
+  <path d="M330 340 Q600 130 870 340 Q600 550 330 340 Z" fill="#071322" stroke="url(#lid)" stroke-width="10" stroke-linejoin="round"/>
+  <circle cx="600" cy="340" r="112" fill="url(#iris)"/>
+  <circle cx="600" cy="340" r="42" fill="#05080f"/>
+  <circle cx="626" cy="314" r="16" fill="#ffffff" opacity=".9"/>
+  <text x="600" y="640" text-anchor="middle" font-family="Inter, 'Segoe UI', Arial, sans-serif" font-size="96" font-weight="700" letter-spacing="18" fill="#e8f7ff">GULL</text>
+  <text x="600" y="700" text-anchor="middle" font-family="Inter, 'Segoe UI', Arial, sans-serif" font-size="30" letter-spacing="8" fill="#7fcdee">VOICE AI TRADING DESK</text>
+</svg>

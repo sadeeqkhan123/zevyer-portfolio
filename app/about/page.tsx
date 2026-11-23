@@ -1,8 +1,7 @@
 import type { Metadata } from 'next'
-import { FlaskConical } from 'lucide-react'
-import { COMPANY, INDUSTRIES, PILLARS, PRODUCTS, STATS } from '@/lib/site'
+import { COMPANY, INDUSTRIES, PILLARS, PRODUCTS } from '@/lib/site'
 import { Reveal } from '@/components/site/reveal'
-import { CtaBand, PageHero, SectionHeading } from '@/components/site/ui'
+import { CtaBand, PageHero, ProductCard, SectionHeading, StatsBar } from '@/components/site/ui'
 
 export const metadata: Metadata = {
   title: 'About',
@@ -22,7 +21,7 @@ export default function AboutPage() {
         body={COMPANY.description}
       />
 
-      <section className="container-x grid gap-6 lg:grid-cols-2">
+      <section className="container-x grid grid-cols-1 gap-6 md:grid-cols-2">
         <Reveal className="glass rounded-[2rem] p-8 sm:p-10">
           <h2 className="text-2xl font-bold text-ink">Who we are</h2>
           <p className="mt-4 leading-relaxed text-ink-soft">
@@ -48,14 +47,7 @@ export default function AboutPage() {
       </section>
 
       <section className="container-x mt-6">
-        <Reveal className="glass grid grid-cols-2 rounded-3xl lg:grid-cols-4">
-          {STATS.map((s) => (
-            <div key={s.label} className="px-6 py-7 text-center">
-              <p className="font-[family-name:var(--font-display)] text-3xl font-extrabold text-ink">{s.value}</p>
-              <p className="mt-1 text-sm text-ink-soft">{s.label}</p>
-            </div>
-          ))}
-        </Reveal>
+        <StatsBar />
       </section>
 
       <section className="container-x mt-24">
@@ -77,20 +69,7 @@ export default function AboutPage() {
         <SectionHeading eyebrow="Innovation" title="Products from our lab" />
         <div className="mt-12 grid gap-6 md:grid-cols-2">
           {PRODUCTS.map((product, i) => (
-            <Reveal key={product.name} delay={i * 0.06} className="glass rounded-3xl p-8">
-              <span className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-white ring-1 ring-[rgba(15,52,107,0.08)]">
-                {product.image ? (
-                  <img src={product.image} alt={`${product.name} logo`} width={48} height={56} className="h-12 w-auto object-contain" />
-                ) : (
-                  <FlaskConical className="h-7 w-7 text-brand-600" aria-hidden />
-                )}
-              </span>
-              <h3 className="mt-6 text-2xl font-bold text-ink">{product.name}</h3>
-              <p className="mt-1 text-sm font-semibold text-brand-700">
-                {product.label} · {product.status}
-              </p>
-              <p className="mt-3 leading-relaxed text-ink-soft">{product.body}</p>
-            </Reveal>
+            <ProductCard key={product.name} product={product} delay={i * 0.06} />
           ))}
         </div>
       </section>

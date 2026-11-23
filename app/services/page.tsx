@@ -3,7 +3,8 @@ import Link from 'next/link'
 import { ArrowRight, Check } from 'lucide-react'
 import { PROCESS, SERVICES } from '@/lib/site'
 import { Reveal } from '@/components/site/reveal'
-import { CtaBand, PageHero, SectionHeading, SERVICE_ICONS } from '@/components/site/ui'
+import { CtaBand, PageHero, SectionHeading } from '@/components/site/ui'
+import { ServiceIcon } from '@/components/site/service-icon'
 
 export const metadata: Metadata = {
   title: 'Services',
@@ -38,19 +39,16 @@ export default function ServicesPage() {
 
       <section className="container-x mt-12 space-y-6">
         {SERVICES.map((service, i) => {
-          const Icon = SERVICE_ICONS[service.icon]
           return (
             <Reveal
               as="article"
               key={service.slug}
-              className="glass scroll-mt-28 rounded-[2rem] p-7 sm:p-10"
+              className="glass rounded-[2rem] p-6 sm:p-10"
             >
-              <div id={service.slug} className="grid gap-8 lg:grid-cols-12 lg:gap-12">
+              <div id={service.slug} className="grid grid-cols-1 scroll-mt-32 gap-8 lg:grid-cols-12 lg:gap-12">
                 <div className="lg:col-span-7">
                   <div className="flex items-center gap-4">
-                    <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[linear-gradient(140deg,#dcf1fb,#b8e3f5)] text-brand-700 ring-1 ring-white">
-                      <Icon className="h-7 w-7" aria-hidden />
-                    </span>
+                    <ServiceIcon name={service.icon} size="lg" />
                     <span className="font-[family-name:var(--font-display)] text-sm font-bold text-brand-600">
                       {String(i + 1).padStart(2, '0')}
                     </span>
@@ -58,7 +56,7 @@ export default function ServicesPage() {
                   <h2 className="mt-6 text-2xl font-bold text-ink sm:text-3xl">{service.title}</h2>
                   <p className="mt-4 max-w-xl text-base leading-relaxed text-ink-soft sm:text-lg">{service.description}</p>
                   <Link href={`/contact?service=${service.slug}`} className="btn-primary mt-7">
-                    Discuss {service.title.split(' ')[0].toLowerCase() === 'ai' ? 'AI agents' : 'this service'}
+                    Discuss this service
                     <ArrowRight className="h-4 w-4" aria-hidden />
                   </Link>
                 </div>

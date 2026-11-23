@@ -84,7 +84,7 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} noValidate className="mt-8 grid gap-5 sm:grid-cols-2">
+    <form onSubmit={onSubmit} noValidate className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2">
       <Field id="name" label="Full name" required error={errors.name}>
         <input id="f-name" name="name" autoComplete="name" className="field" value={fields.name} onChange={update('name')} onBlur={onBlur('name')} aria-invalid={!!errors.name} aria-describedby={errors.name ? 'e-name' : undefined} />
       </Field>

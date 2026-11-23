@@ -31,7 +31,7 @@ export default function ContactPage() {
         body="Share a few details and we will get back to you with next steps. Prefer a quick chat? Message us on WhatsApp."
       />
 
-      <section className="container-x grid gap-6 lg:grid-cols-12">
+      <section className="container-x grid grid-cols-1 gap-6 lg:grid-cols-12">
         <Reveal className="glass-strong rounded-[2rem] p-6 sm:p-10 lg:col-span-7">
           <h2 className="text-2xl font-bold text-ink">Project inquiry</h2>
           <p className="mt-2 text-sm text-ink-soft">Fields marked * are required.</p>

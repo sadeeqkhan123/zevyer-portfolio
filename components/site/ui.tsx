@@ -1,16 +1,58 @@
 import Link from 'next/link'
-import { ArrowRight, Bot, Code2, Globe, Megaphone, Palette, Smartphone, type LucideIcon } from 'lucide-react'
-import type { ServiceIcon } from '@/lib/site'
-import { COMPANY } from '@/lib/site'
+import { ArrowRight, ArrowUpRight } from 'lucide-react'
+import type { Product } from '@/lib/site'
+import { COMPANY, STATS } from '@/lib/site'
 import { Reveal } from '@/components/site/reveal'
+import { CountUp } from '@/components/site/count-up'
 
-export const SERVICE_ICONS: Record<ServiceIcon, LucideIcon> = {
-  bot: Bot,
-  globe: Globe,
-  smartphone: Smartphone,
-  megaphone: Megaphone,
-  palette: Palette,
-  code: Code2,
+export function StatsBar() {
+  return (
+    <Reveal className="glass overflow-hidden rounded-3xl">
+      <div className="grid grid-cols-2 gap-px bg-[rgba(15,52,107,0.08)] md:grid-cols-4">
+        {STATS.map((s) => (
+          <div key={s.label} className="bg-[#f8fbfe]/90 px-4 py-7 text-center sm:px-6 sm:py-8">
+            <p className="font-[family-name:var(--font-display)] text-3xl font-extrabold text-ink sm:text-4xl">
+              <CountUp value={s.value} />
+            </p>
+            <p className="mt-1 text-sm text-ink-soft">{s.label}</p>
+          </div>
+        ))}
+      </div>
+    </Reveal>
+  )
+}
+
+export function ProductCard({ product, delay = 0 }: { product: Product; delay?: number }) {
+  const body = (
+    <>
+      <div className="flex items-center justify-between gap-4">
+        <span className="flex h-16 min-w-16 items-center justify-center overflow-hidden rounded-2xl bg-white px-3 ring-1 ring-[rgba(15,52,107,0.08)]">
+          <img src={product.image} alt={`${product.name} logo`} className={`${product.imageClass} object-contain`} />
+        </span>
+        <span className="rounded-full bg-brand-100 px-3 py-1 text-xs font-semibold text-brand-700">{product.status}</span>
+      </div>
+      <h3 className="mt-6 text-2xl font-bold text-ink">{product.name}</h3>
+      <p className="mt-1 text-sm font-semibold text-brand-700">{product.label}</p>
+      <p className="mt-3 leading-relaxed text-ink-soft">{product.body}</p>
+      {product.href && (
+        <span className="mt-auto inline-flex items-center gap-1.5 pt-6 text-sm font-semibold text-brand-700">
+          Read the case study
+          <ArrowUpRight className="h-4 w-4" aria-hidden />
+        </span>
+      )}
+    </>
+  )
+  return (
+    <Reveal delay={delay} className="h-full">
+      {product.href ? (
+        <Link href={product.href} className="glass card-hover flex h-full flex-col rounded-3xl p-7 sm:p-8">
+          {body}
+        </Link>
+      ) : (
+        <div className="glass flex h-full flex-col rounded-3xl p-7 sm:p-8">{body}</div>
+      )}
+    </Reveal>
+  )
 }
 
 export function SectionHeading({

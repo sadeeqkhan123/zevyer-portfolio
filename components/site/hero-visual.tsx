@@ -14,12 +14,12 @@ const tiles = [
 /** Decorative glass composition for the hero. Purely illustrative. */
 export function HeroVisual() {
   return (
-    <div className="relative mx-auto aspect-square w-full max-w-[540px]" aria-hidden>
+    <div className="relative mx-auto w-full max-w-[540px] py-6 sm:aspect-square sm:py-0" aria-hidden>
       <div className="absolute inset-[8%] rounded-full bg-[radial-gradient(circle_at_50%_40%,#b8e3f5_0%,rgba(184,227,245,0)_70%)]" />
 
       {/* Core card */}
       <motion.div
-        className="glass-strong absolute left-1/2 top-1/2 w-[68%] -translate-x-1/2 -translate-y-1/2 rounded-[2rem] p-6"
+        className="glass-strong relative mx-auto w-full max-w-[380px] rounded-[2rem] p-5 sm:absolute sm:left-1/2 sm:top-1/2 sm:w-[68%] sm:max-w-none sm:-translate-x-1/2 sm:-translate-y-1/2 sm:p-6"
         initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1] }}
@@ -44,7 +44,7 @@ export function HeroVisual() {
 
       {/* Floating chips */}
       <motion.div
-        className="glass-strong absolute left-0 top-[12%] flex items-center gap-3 rounded-2xl px-4 py-3"
+        className="glass-strong absolute left-0 top-[12%] hidden items-center gap-3 rounded-2xl px-4 py-3 sm:flex"
         animate={{ y: [0, -8, 0] }}
         transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
       >
@@ -58,7 +58,7 @@ export function HeroVisual() {
       </motion.div>
 
       <motion.div
-        className="glass-strong absolute bottom-[10%] right-0 flex items-center gap-3 rounded-2xl px-4 py-3"
+        className="glass-strong absolute bottom-[10%] right-0 hidden items-center gap-3 rounded-2xl px-4 py-3 sm:flex"
         animate={{ y: [0, 8, 0] }}
         transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
       >
