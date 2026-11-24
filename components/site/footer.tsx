@@ -10,8 +10,8 @@ export function Footer() {
   return (
     <footer className="relative mt-24 px-3 pb-3 sm:px-5 sm:pb-5">
       <div className="glass mx-auto max-w-7xl rounded-3xl px-6 py-12 sm:px-10 lg:py-14">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
-          <div className="sm:col-span-2 lg:col-span-4">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-3 lg:grid-cols-12 lg:gap-8">
+          <div className="sm:col-span-3 lg:col-span-4">
             <Logo />
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-ink-soft">{COMPANY.description}</p>
             <div className="mt-6 flex flex-wrap gap-2">
@@ -36,7 +36,7 @@ export function Footer() {
 
           <FooterColumn title="Services" className="lg:col-span-3">
             {SERVICES.map((s) => (
-              <FooterLink key={s.slug} href={`/services#${s.slug}`}>
+              <FooterLink key={s.slug} href={`/services/${s.slug}`}>
                 {s.title}
               </FooterLink>
             ))}

@@ -7,6 +7,7 @@ import { CtaBand, ProductCard, SectionHeading, StatsBar } from '@/components/sit
 import { HeroVisual } from '@/components/site/hero-visual'
 import { ServiceIcon } from '@/components/site/service-icon'
 import { TechMarquee } from '@/components/site/tech-marquee'
+import { FoundersSection } from '@/components/site/founders'
 
 export default function HomePage() {
   const featured = CASE_STUDIES.filter((c) => c.featured).slice(0, 3)
@@ -16,7 +17,7 @@ export default function HomePage() {
       {/* Hero */}
       <section className="container-x pb-12 pt-28 sm:pt-36 lg:pb-16 lg:pt-40">
         <div className="grid items-center gap-10 md:gap-12 lg:grid-cols-12 lg:gap-10">
-          <Reveal className="text-center lg:col-span-6 lg:text-left">
+          <div className="rise text-center lg:col-span-6 lg:text-left">
             <span className="eyebrow">{COMPANY.tagline}</span>
             <h1 className="mx-auto mt-5 max-w-2xl text-[2.35rem] font-extrabold leading-[1.06] text-ink sm:mt-6 sm:text-6xl lg:mx-0 lg:text-[4.1rem]">
               Your digital team for <span className="text-gradient">AI, web, apps</span> and growth.
@@ -42,11 +43,11 @@ export default function HomePage() {
                 </li>
               ))}
             </ul>
-          </Reveal>
+          </div>
 
-          <Reveal className="lg:col-span-6" delay={0.1}>
+          <div className="rise lg:col-span-6 [animation-delay:100ms]">
             <HeroVisual />
-          </Reveal>
+          </div>
         </div>
       </section>
 
@@ -79,7 +80,7 @@ export default function HomePage() {
           {SERVICES.map((service, i) => (
             <Reveal as="li" key={service.slug} delay={i * 0.04} className="h-full">
               <Link
-                href={`/services#${service.slug}`}
+                href={`/services/${service.slug}`}
                 className="glass card-hover group flex h-full flex-col rounded-3xl p-6 sm:p-7"
               >
                 <ServiceIcon name={service.icon} />
@@ -167,6 +168,8 @@ export default function HomePage() {
           </ul>
         </Reveal>
       </section>
+
+      <FoundersSection />
 
       <CtaBand />
 

@@ -1,14 +1,17 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, Check } from 'lucide-react'
-import { PROCESS, SERVICES } from '@/lib/site'
+import { ArrowRight } from 'lucide-react'
+import { PROCESS, SERVICES, serviceCaseStudySlugs } from '@/lib/site'
 import { Reveal } from '@/components/site/reveal'
 import { CtaBand, PageHero, SectionHeading } from '@/components/site/ui'
 import { ServiceIcon } from '@/components/site/service-icon'
+import { ServiceImage } from '@/components/site/service-parts'
 
 export const metadata: Metadata = {
   title: 'Services',
-  description: 'AI agents and automation, web and app development, digital marketing, brand design and custom software.',
+  description:
+    'AI agents and automation, web and app development, digital marketing, brand design and custom software — planned, built and grown by one team.',
+  alternates: { canonical: '/services' },
 }
 
 export default function ServicesPage() {
@@ -24,61 +27,64 @@ export default function ServicesPage() {
         body="Hire us for a single project or as your full digital department. Every service is planned, delivered and measured by the same team."
       />
 
-      {/* Quick jump */}
-      <nav aria-label="Services" className="container-x">
-        <ul className="flex flex-wrap gap-2">
-          {SERVICES.map((s) => (
-            <li key={s.slug}>
-              <a href={`#${s.slug}`} className="glass inline-flex min-h-10 items-center rounded-full px-4 text-sm font-medium text-ink transition hover:text-brand-700">
-                {s.title}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-
-      <section className="container-x mt-12 space-y-6">
-        {SERVICES.map((service, i) => {
-          return (
-            <Reveal
-              as="article"
-              key={service.slug}
-              className="glass rounded-[2rem] p-6 sm:p-10"
-            >
-              <div id={service.slug} className="grid grid-cols-1 scroll-mt-32 gap-8 lg:grid-cols-12 lg:gap-12">
-                <div className="lg:col-span-7">
-                  <div className="flex items-center gap-4">
-                    <ServiceIcon name={service.icon} size="lg" />
-                    <span className="font-[family-name:var(--font-display)] text-sm font-bold text-brand-600">
-                      {String(i + 1).padStart(2, '0')}
-                    </span>
+      <section className="container-x">
+        <ul className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {SERVICES.map((service, i) => {
+            const studies = serviceCaseStudySlugs(service).length
+            return (
+              <Reveal as="li" key={service.slug} delay={(i % 2) * 0.06} className="h-full">
+                <article className="glass card-hover group relative flex h-full flex-col overflow-hidden rounded-[2rem] p-2.5">
+                  <div className="relative aspect-[16/9] overflow-hidden rounded-[1.6rem] bg-brand-100">
+                    <ServiceImage
+                      src={service.image}
+                      alt={service.imageAlt}
+                      priority={i < 2}
+                      sizes="(min-width: 768px) 50vw, 100vw"
+                      className="transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
+                    <div className="absolute left-4 top-4">
+                      <ServiceIcon name={service.icon} />
+                    </div>
                   </div>
-                  <h2 className="mt-6 text-2xl font-bold text-ink sm:text-3xl">{service.title}</h2>
-                  <p className="mt-4 max-w-xl text-base leading-relaxed text-ink-soft sm:text-lg">{service.description}</p>
-                  <Link href={`/contact?service=${service.slug}`} className="btn-primary mt-7">
-                    Discuss this service
-                    <ArrowRight className="h-4 w-4" aria-hidden />
-                  </Link>
-                </div>
-                <div className="lg:col-span-5">
-                  <div className="glass-strong h-full rounded-3xl p-6">
-                    <h3 className="text-sm font-semibold uppercase tracking-[0.14em] text-ink">What you get</h3>
-                    <ul className="mt-4 space-y-3">
-                      {service.deliverables.map((d) => (
-                        <li key={d} className="flex items-start gap-3 text-sm text-ink">
-                          <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-600 text-white">
-                            <Check className="h-3 w-3" strokeWidth={3} aria-hidden />
-                          </span>
-                          {d}
+                  <div className="flex flex-1 flex-col px-4 pb-4 pt-6 sm:px-6 sm:pb-6">
+                    <div className="flex items-center gap-3 text-sm text-ink-soft">
+                      <span className="font-[family-name:var(--font-display)] font-bold text-brand-600">
+                        {String(i + 1).padStart(2, '0')}
+                      </span>
+                      <span aria-hidden>·</span>
+                      <span>
+                        {service.subServices.length} services{studies ? ` · ${studies} case studies` : ''}
+                      </span>
+                    </div>
+                    <h2 className="mt-3 text-2xl font-bold text-ink sm:text-[1.7rem]">
+                      {/* The heading link covers the card; sub-service links sit above it. */}
+                      <Link href={`/services/${service.slug}`} className="after:absolute after:inset-0 after:content-['']">
+                        {service.title}
+                      </Link>
+                    </h2>
+                    <p className="mt-3 leading-relaxed text-ink-soft">{service.description}</p>
+                    <ul className="relative z-10 mt-5 flex flex-wrap gap-2">
+                      {service.subServices.map((sub) => (
+                        <li key={sub.slug}>
+                          <Link
+                            href={`/services/${service.slug}/${sub.slug}`}
+                            className="inline-flex min-h-9 items-center rounded-full bg-brand-100 px-3.5 text-xs font-semibold text-brand-700 transition-colors hover:bg-brand-600 hover:text-white"
+                          >
+                            {sub.title}
+                          </Link>
                         </li>
                       ))}
                     </ul>
+                    <span className="mt-auto inline-flex items-center gap-1.5 pt-6 text-sm font-semibold text-brand-700">
+                      Explore {service.title}
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
+                    </span>
                   </div>
-                </div>
-              </div>
-            </Reveal>
-          )
-        })}
+                </article>
+              </Reveal>
+            )
+          })}
+        </ul>
       </section>
 
       <section className="container-x mt-24">

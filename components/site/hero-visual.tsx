@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m as motion } from 'framer-motion'
 import { BrandMark } from '@/components/site/brand-mark'
 import { Bot, Code2, Globe, Megaphone, Smartphone, TrendingUp } from 'lucide-react'
 

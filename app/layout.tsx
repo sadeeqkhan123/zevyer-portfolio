@@ -17,6 +17,7 @@ const jakarta = Plus_Jakarta_Sans({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://sadeeq-khan.vercel.app'),
   title: {
     default: `${COMPANY.name} — ${COMPANY.tagline}`,
     template: `%s · ${COMPANY.name}`,

@@ -27,7 +27,15 @@ export function ProductCard({ product, delay = 0 }: { product: Product; delay?: 
     <>
       <div className="flex items-center justify-between gap-4">
         <span className="flex h-16 min-w-16 items-center justify-center overflow-hidden rounded-2xl bg-white px-3 ring-1 ring-[rgba(15,52,107,0.08)]">
-          <img src={product.image} alt={`${product.name} logo`} className={`${product.imageClass} object-contain`} />
+          <img
+            src={product.image}
+            alt={`${product.name} logo`}
+            width={product.imageWidth}
+            height={product.imageHeight}
+            loading="lazy"
+            decoding="async"
+            className={`${product.imageClass} object-contain`}
+          />
         </span>
         <span className="rounded-full bg-brand-100 px-3 py-1 text-xs font-semibold text-brand-700">{product.status}</span>
       </div>
@@ -90,11 +98,11 @@ export function SectionHeading({
 export function PageHero({ eyebrow, title, body }: { eyebrow: string; title: React.ReactNode; body: string }) {
   return (
     <section className="container-x pb-12 pt-36 sm:pt-40 lg:pb-16">
-      <Reveal className="max-w-3xl">
+      <div className="rise max-w-3xl">
         <span className="eyebrow">{eyebrow}</span>
         <h1 className="mt-5 text-4xl font-extrabold leading-[1.08] text-ink sm:text-5xl lg:text-6xl">{title}</h1>
         <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink-soft">{body}</p>
-      </Reveal>
+      </div>
     </section>
   )
 }
@@ -113,8 +121,8 @@ export function CtaBand({
           aria-hidden
           className="absolute inset-0 -z-10 bg-[linear-gradient(135deg,#2160ac_0%,#1677bc_100%)]"
         />
-        <div aria-hidden className="absolute -right-24 -top-24 -z-10 h-72 w-72 rounded-full bg-[#0ebde6]/35 blur-3xl" />
-        <div aria-hidden className="absolute -bottom-28 -left-16 -z-10 h-72 w-72 rounded-full bg-[#2160ac]/40 blur-3xl" />
+        <div aria-hidden className="absolute -right-40 -top-40 -z-10 h-[28rem] w-[28rem] rounded-full bg-[radial-gradient(closest-side,rgba(14,189,230,0.35),transparent)]" />
+        <div aria-hidden className="absolute -bottom-44 -left-32 -z-10 h-[28rem] w-[28rem] rounded-full bg-[radial-gradient(closest-side,rgba(33,96,172,0.4),transparent)]" />
         <h2 className="mx-auto max-w-2xl text-3xl font-bold text-white sm:text-4xl">{title}</h2>
         <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg">{body}</p>
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -129,7 +137,7 @@ export function CtaBand({
             href={COMPANY.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex min-h-12 items-center gap-2 rounded-full border border-white/40 bg-white/10 px-7 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/20 active:scale-[0.98]"
+            className="inline-flex min-h-12 items-center gap-2 rounded-full border border-white/40 bg-white/10 px-7 text-sm font-semibold text-white transition hover:bg-white/20 active:scale-[0.98]"
           >
             Chat on WhatsApp
           </a>

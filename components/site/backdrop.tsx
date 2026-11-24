@@ -4,9 +4,10 @@ import { BrandMark } from '@/components/site/brand-mark'
 export function Backdrop() {
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-[#f6fafd]">
-      <div className="absolute -left-40 -top-40 h-[560px] w-[560px] rounded-full bg-[#b8e3f5] opacity-60 blur-[120px]" />
-      <div className="absolute -right-32 top-[18%] h-[480px] w-[480px] rounded-full bg-[#c9dcf0] opacity-70 blur-[110px]" />
-      <div className="absolute bottom-[-12%] left-[20%] h-[520px] w-[620px] rounded-full bg-[#dcf1fb] opacity-90 blur-[130px]" />
+      {/* Radial gradients instead of blur filters: same soft glow, no GPU filter cost. */}
+      <div className="absolute -left-[22rem] -top-[22rem] h-[60rem] w-[60rem] rounded-full bg-[radial-gradient(closest-side,rgba(184,227,245,0.6),transparent)]" />
+      <div className="absolute -right-[18rem] top-[8%] h-[54rem] w-[54rem] rounded-full bg-[radial-gradient(closest-side,rgba(201,220,240,0.7),transparent)]" />
+      <div className="absolute bottom-[-30%] left-[10%] h-[58rem] w-[66rem] rounded-full bg-[radial-gradient(closest-side,rgba(220,241,251,0.9),transparent)]" />
       <BrandMark muted className="absolute -bottom-[14vmin] -left-[10vmin] h-[62vmin] w-[62vmin] opacity-45" />
       <div
         className="absolute inset-0 opacity-[0.35]"

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowLeft, ArrowRight, Check, TrendingUp } from 'lucide-react'
-import { CASE_STUDIES } from '@/lib/site'
+import { CASE_STUDIES, SERVICES } from '@/lib/site'
 import { Reveal } from '@/components/site/reveal'
 import { CtaBand } from '@/components/site/ui'
 import { CaseStudyMedia, StatusBadge } from '@/components/site/case-study-card'
@@ -29,6 +29,10 @@ export default async function CaseStudyPage({ params }: { params: Promise<Params
 
   const study = CASE_STUDIES[index]
   const next = CASE_STUDIES[(index + 1) % CASE_STUDIES.length]
+  // Sub-services that list this case study, for links back to the service pages.
+  const servicesUsed = SERVICES.flatMap((s) =>
+    s.subServices.filter((sub) => sub.caseStudies.includes(study.slug)).map((sub) => ({ href: `/services/${s.slug}/${sub.slug}`, label: sub.title }))
+  )
 
   return (
     <>
@@ -110,6 +114,19 @@ export default async function CaseStudyPage({ params }: { params: Promise<Params
                 <dt className="font-semibold uppercase tracking-[0.14em] text-ink-soft">Our role</dt>
                 <dd className="mt-1 text-base text-ink">{study.role}</dd>
               </div>
+              {servicesUsed.length > 0 && (
+                <div>
+                  <dt className="font-semibold uppercase tracking-[0.14em] text-ink-soft">Services</dt>
+                  <dd className="mt-2 flex flex-col gap-1">
+                    {servicesUsed.map((s) => (
+                      <Link key={s.href} href={s.href} className="inline-flex min-h-8 items-center gap-1.5 text-base font-semibold text-brand-700 hover:underline">
+                        {s.label}
+                        <ArrowRight className="h-3.5 w-3.5" aria-hidden />
+                      </Link>
+                    ))}
+                  </dd>
+                </div>
+              )}
               <div>
                 <dt className="font-semibold uppercase tracking-[0.14em] text-ink-soft">Capabilities</dt>
                 <dd className="mt-2 flex flex-wrap gap-2">

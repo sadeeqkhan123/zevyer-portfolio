@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, m as motion } from 'framer-motion'
 import type { CaseStudy } from '@/lib/site'
 import { cn } from '@/lib/utils'
 import { CaseStudyCard } from '@/components/site/case-study-card'

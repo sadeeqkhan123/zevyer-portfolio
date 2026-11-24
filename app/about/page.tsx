@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { COMPANY, INDUSTRIES, PILLARS, PRODUCTS } from '@/lib/site'
 import { Reveal } from '@/components/site/reveal'
 import { CtaBand, PageHero, ProductCard, SectionHeading, StatsBar } from '@/components/site/ui'
+import { FoundersSection } from '@/components/site/founders'
 
 export const metadata: Metadata = {
   title: 'About',
@@ -49,6 +50,8 @@ export default function AboutPage() {
       <section className="container-x mt-6">
         <StatsBar />
       </section>
+
+      <FoundersSection className="mt-24" />
 
       <section className="container-x mt-24">
         <SectionHeading eyebrow="Our approach" title="What guides every engagement" align="center" />

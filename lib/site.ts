@@ -22,71 +22,40 @@ export const NAV_ITEMS = [
   { label: 'Contact', href: '/contact' },
 ] as const
 
-export type ServiceIcon = 'bot' | 'globe' | 'smartphone' | 'megaphone' | 'palette' | 'code'
+export { SERVICES, getService, getSubService, serviceCaseStudySlugs } from './services'
+export type { Service, SubService, ServiceIcon, Faq, Point } from './services'
 
-export type Service = {
-  slug: string
-  title: string
-  short: string
-  description: string
-  deliverables: string[]
-  icon: ServiceIcon
+/** Co-founder profiles, rendered as typed code cards on the home and About pages. */
+export interface CoFounder {
+  /** camelCase identifier shown as the variable name on the card */
+  handle: string
+  name: string
+  designation: string
+  role: string
+  company?: string
+  ventures?: { label: string; url: string }[]
+  email: string
+  linkedin: string
 }
 
-export const SERVICES: Service[] = [
+export const CO_FOUNDERS: CoFounder[] = [
   {
-    slug: 'ai-agents',
-    title: 'AI Agents & Automation',
-    short: 'Custom AI agents that handle support, sales and operations around the clock.',
-    description:
-      'We design and deploy AI agents and automations that take repetitive work off your team — from customer support and lead qualification to CRM updates and reporting.',
-    deliverables: ['Customer support & sales agents', 'Workflow & CRM automation', 'Chatbots for web and WhatsApp', 'Analytics and insight dashboards'],
-    icon: 'bot',
+    handle: 'sadeeqKhan',
+    name: 'Sadeeq Khan',
+    designation: 'Co-Founder · Program Manager',
+    role: 'Program Manager',
+    company: 'AI Savvy, USA',
+    ventures: [{ label: 'aver.bio', url: 'https://aver.bio' }],
+    email: 'sadeeq.khan.bio@gmail.com',
+    linkedin: 'https://www.linkedin.com/in/sadeeqkhanaver/',
   },
   {
-    slug: 'web-development',
-    title: 'Web Development',
-    short: 'Fast, secure, scalable websites and web platforms built to convert.',
-    description:
-      'Marketing sites, platforms and web apps engineered for speed, accessibility and growth — with a polished experience on every screen size.',
-    deliverables: ['Company & landing websites', 'Web apps & SaaS platforms', 'E-commerce stores', 'CMS & integrations'],
-    icon: 'globe',
-  },
-  {
-    slug: 'app-development',
-    title: 'App Development',
-    short: 'iOS and Android apps with clean UX, from MVP to scale.',
-    description:
-      'Mobile products designed around real users and built to ship — from first prototype through launch, analytics and iteration.',
-    deliverables: ['iOS & Android apps', 'Cross-platform builds', 'MVPs & prototypes', 'App store launch support'],
-    icon: 'smartphone',
-  },
-  {
-    slug: 'digital-marketing',
-    title: 'Digital Marketing & Growth',
-    short: 'SEO, paid ads, social and content — data-driven and built for ROI.',
-    description:
-      'Full-funnel campaigns that bring the right people in and turn them into customers, with clear reporting on what is working.',
-    deliverables: ['SEO & content strategy', 'Paid ads (Google, Meta)', 'Social media management', 'Lead generation funnels'],
-    icon: 'megaphone',
-  },
-  {
-    slug: 'brand-design',
-    title: 'Brand & Creative Design',
-    short: 'Identity, UI/UX and visuals that make your brand look the part.',
-    description:
-      'Brand identities, design systems and product interfaces that stay consistent from your logo to your app screens.',
-    deliverables: ['Logo & brand identity', 'UI/UX design', 'Design systems', 'Marketing creatives'],
-    icon: 'palette',
-  },
-  {
-    slug: 'custom-software',
-    title: 'Custom Software',
-    short: 'Bespoke tools and enterprise software shaped to how you work.',
-    description:
-      'When off-the-shelf tools do not fit, we build software around your processes — dashboards, internal tools and integrations.',
-    deliverables: ['Internal tools & dashboards', 'API & system integrations', 'Enterprise software', 'Maintenance & support'],
-    icon: 'code',
+    handle: 'usamaHussain',
+    name: 'Usama Hussain',
+    designation: 'Co-Founder',
+    role: 'Co-Founder',
+    email: 'usamahussain492@gmail.com',
+    linkedin: 'https://www.linkedin.com/in/usama492/',
   },
 ]
 
@@ -133,7 +102,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       'Created B2B pages for housing societies, campuses and city pilots',
     ],
     technologies: ['IoT', 'AI integration', 'Mobile app', 'E-commerce'],
-    image: '/work/eco-zindagi.png',
+    image: '/work/eco-zindagi.webp',
     imageFit: 'contain',
     imageBg: 'linear-gradient(140deg,#f2fbf3,#e3f5e6)',
     featured: true,
@@ -157,7 +126,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       'Single sign-in by phone or email across every platform',
     ],
     technologies: ['Expo', 'React Native', 'PWA', 'AI assistant'],
-    image: '/work/turbo.png',
+    image: '/work/turbo.webp',
     imageFit: 'contain',
     imageBg: 'radial-gradient(circle at 50% 40%,#1c1d22,#0b0b0d)',
     featured: true,
@@ -226,7 +195,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       'The Eminent App for Android, coming to Google Play',
     ],
     technologies: ['Next.js', 'Mobile app', 'Real-estate listings'],
-    image: '/work/eminent.png',
+    image: '/work/eminent.webp',
     imageFit: 'contain',
     imageBg: 'linear-gradient(140deg,#f4f3ff,#e9e7fb)',
   },
@@ -248,7 +217,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       'Customer sign-in for faster repeat orders',
     ],
     technologies: ['Web app', 'E-commerce', 'UI/UX'],
-    image: '/work/yourfoods.png',
+    image: '/work/yourfoods.webp',
     imageFit: 'contain',
     imageBg: '#ffffff',
   },
@@ -271,7 +240,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       'WhatsApp, phone and email contact paths',
     ],
     technologies: ['Web development', 'B2B', 'Content'],
-    image: '/work/sartaj-united.png',
+    image: '/work/sartaj-united.webp',
     imageFit: 'contain',
     imageBg: 'linear-gradient(140deg,#fff7f5,#fdecea)',
   },
@@ -294,7 +263,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       'Created the brand identity and visual design system',
     ],
     technologies: ['Next.js', 'AI/ML', 'Design System', 'User Research'],
-    image: '/project-metafuture-logo.png',
+    image: '/project-metafuture-logo.webp',
   },
   {
     slug: 'the-meta-future-ai',
@@ -315,7 +284,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       'Designed the product roadmap for the next 18 months',
     ],
     technologies: ['Analytics', 'B2B SaaS', 'Project Management'],
-    image: '/project-metafuture-logo.png',
+    image: '/project-metafuture-logo.webp',
   },
   {
     slug: 'what-the-food',
@@ -336,7 +305,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       'Led user research interviews and testing',
     ],
     technologies: ['React', 'Mobile', 'Community Building'],
-    image: '/project-whatthefood-logo.png',
+    image: '/project-whatthefood-logo.webp',
   },
   {
     slug: 'printrie',
@@ -357,7 +326,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       'Reduced delivery time by 25%',
     ],
     technologies: ['E-commerce', 'Logistics', 'Operations'],
-    image: '/project-printrie-logo.png',
+    image: '/project-printrie-logo.webp',
   },
   {
     slug: 'envision-galleria',
@@ -378,7 +347,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       'Developed community engagement programs',
     ],
     technologies: ['Creative Direction', 'Community', 'Brand Strategy'],
-    image: '/project-envision-logo.png',
+    image: '/project-envision-logo.webp',
   },
 ]
 
@@ -401,6 +370,9 @@ export type Product = {
   label: string
   body: string
   image: string
+  /** Intrinsic size, so the browser reserves space before the logo loads. */
+  imageWidth: number
+  imageHeight: number
   imageClass: string
   status: string
   href?: string
@@ -412,6 +384,8 @@ export const PRODUCTS: Product[] = [
     label: 'Virtual AI fitting room',
     body: 'An e-commerce layer that lets shoppers try garments on virtually — building buyer confidence and reducing costly returns.',
     image: '/lilayn-logo.png',
+    imageWidth: 193,
+    imageHeight: 228,
     imageClass: 'h-12 w-auto',
     status: 'Product',
   },
@@ -420,6 +394,8 @@ export const PRODUCTS: Product[] = [
     label: 'Continuous validation for clinical bioinformatics',
     body: 'Benchmarks clinical pipelines against public reference materials, flags any change that moves the numbers and produces signed evidence an inspector can verify.',
     image: '/work/aver-mark.png',
+    imageWidth: 400,
+    imageHeight: 103,
     imageClass: 'h-9 w-auto',
     status: 'Live',
     href: '/work/aver',

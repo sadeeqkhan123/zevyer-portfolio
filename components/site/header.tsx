@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, m as motion } from 'framer-motion'
 import { ArrowRight, Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { NAV_ITEMS } from '@/lib/site'
@@ -42,6 +42,7 @@ export function Header() {
       <div
         className={cn(
           'mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 rounded-2xl px-4 transition-all duration-300 sm:px-5',
+          'header-blur',
           scrolled ? 'glass-strong' : 'glass'
         )}
       >
