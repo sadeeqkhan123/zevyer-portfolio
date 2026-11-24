@@ -1,5 +1,5 @@
 import { Fragment, type ReactNode } from 'react'
-import { ArrowUpRight, Linkedin, Mail } from 'lucide-react'
+import { ArrowUpRight, Linkedin, Mail, Phone } from 'lucide-react'
 import { CO_FOUNDERS, type CoFounder } from '@/lib/site'
 import { Reveal } from '@/components/site/reveal'
 import { SectionHeading } from '@/components/site/ui'
@@ -12,7 +12,7 @@ const P = ({ children }: { children: ReactNode }) => <span className="text-[#7f8
 
 function Str({ children, href }: { children: ReactNode; href?: string }) {
   if (!href) return <span className="text-[#c3e88d]">&quot;{children}&quot;</span>
-  const external = !href.startsWith('mailto:')
+  const external = href.startsWith('http')
   return (
     <a
       href={href}
@@ -37,9 +37,9 @@ function Field({ name, children }: { name: string; children: ReactNode }) {
   )
 }
 
-function Editor({ filename, lines }: { filename: string; lines: ReactNode[] }) {
+function Editor({ filename, lines, className = '' }: { filename: string; lines: ReactNode[]; className?: string }) {
   return (
-    <div className="overflow-hidden rounded-2xl bg-[#0f1a2b] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)]">
+    <div className={`overflow-hidden rounded-2xl bg-[#0f1a2b] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)] ${className}`}>
       <div className="flex items-center gap-3 border-b border-white/[0.06] px-4 py-2.5">
         <div className="flex gap-1.5" aria-hidden>
           <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
@@ -65,6 +65,8 @@ function Editor({ filename, lines }: { filename: string; lines: ReactNode[] }) {
 }
 
 const handle = (url: string) => url.replace(/^https?:\/\/(www\.)?linkedin\.com\//, '').replace(/\/$/, '')
+/** +923351908185 → +92 335 1908185 */
+const formatPhone = (p: string) => p.replace(/^[+]92([0-9]{3})([0-9]+)$/, '+92 $1 $2')
 const kebab = (s: string) => s.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
 
 function FounderCard({ founder, index }: { founder: CoFounder; index: number }) {
@@ -104,6 +106,9 @@ function FounderCard({ founder, index }: { founder: CoFounder; index: number }) 
     <Field key="email" name="email">
       <Str href={`mailto:${founder.email}`}>{founder.email}</Str>
     </Field>,
+    <Field key="phone" name="phone">
+      <Str href={`tel:${founder.phone}`}>{formatPhone(founder.phone)}</Str>
+    </Field>,
     <Field key="linkedin" name="linkedin">
       <Str href={founder.linkedin}>{handle(founder.linkedin)}</Str>
     </Field>,
@@ -122,13 +127,18 @@ function FounderCard({ founder, index }: { founder: CoFounder; index: number }) 
           {founder.company && <span className="text-ink-soft/75"> @ {founder.company}</span>}
         </p>
       </header>
-      <div className="min-w-0">
-        <Editor filename={`founders/${kebab(founder.handle)}.ts`} lines={lines} />
+      {/* flex-1 + h-full: both founders' code panels stretch to the same height in a row. */}
+      <div className="min-w-0 flex-1">
+        <Editor filename={`founders/${kebab(founder.handle)}.ts`} lines={lines} className="h-full" />
       </div>
-      <footer className="mt-auto flex flex-wrap gap-2 px-3 pb-3 pt-5 sm:px-4">
+      <footer className="flex flex-wrap gap-2 px-3 pb-3 pt-5 sm:px-4">
         <a href={`mailto:${founder.email}`} className="btn-secondary !min-h-10 !px-4">
           <Mail className="h-4 w-4" aria-hidden />
           Email
+        </a>
+        <a href={`tel:${founder.phone}`} className="btn-secondary !min-h-10 !px-4">
+          <Phone className="h-4 w-4" aria-hidden />
+          Call
         </a>
         <a href={founder.linkedin} target="_blank" rel="noopener noreferrer" className="btn-primary !min-h-10 !px-4">
           <Linkedin className="h-4 w-4" aria-hidden />
@@ -156,6 +166,7 @@ const interfaceLines: ReactNode[] = [
       ['company?', 'string'],
       ['ventures?', 'string[]'],
       ['email', 'string'],
+      ['phone', 'string'],
       ['linkedin', 'string'],
     ] as const
   ).map(([k, t]) => (
@@ -173,7 +184,7 @@ const interfaceLines: ReactNode[] = [
 export function FoundersSection({ className = 'mt-20 lg:mt-28' }: { className?: string }) {
   return (
     <section id="founders" className={`container-x scroll-mt-28 ${className}`}>
-      <div className="grid items-end gap-8 lg:grid-cols-12">
+      <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-7">
           <SectionHeading
             eyebrow="Leadership"

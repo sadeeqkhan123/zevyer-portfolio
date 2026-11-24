@@ -35,6 +35,8 @@ export interface CoFounder {
   company?: string
   ventures?: { label: string; url: string }[]
   email: string
+  /** E.164 format, e.g. +923351908185 */
+  phone: string
   linkedin: string
 }
 
@@ -47,14 +49,17 @@ export const CO_FOUNDERS: CoFounder[] = [
     company: 'AI Savvy, USA',
     ventures: [{ label: 'aver.bio', url: 'https://aver.bio' }],
     email: 'sadeeq.khan.bio@gmail.com',
+    phone: '+923351908185',
     linkedin: 'https://www.linkedin.com/in/sadeeqkhanaver/',
   },
   {
     handle: 'usamaHussain',
     name: 'Usama Hussain',
-    designation: 'Co-Founder',
-    role: 'Co-Founder',
+    designation: 'Co-Founder · SCM Officer',
+    role: 'SCM Officer',
+    company: 'MHIL HIT',
     email: 'usamahussain492@gmail.com',
+    phone: '+923485536414',
     linkedin: 'https://www.linkedin.com/in/usama492/',
   },
 ]
